@@ -17,17 +17,17 @@ export async function analyzeWithQwen(input, heuristicResult) {
   const model = process.env.QWEN_MODEL || DEFAULT_MODEL;
   const prompt = buildPrompt(input, heuristicResult);
 
-  const responsesResult = await tryResponsesApi({ baseUrl, apiKey, model, prompt });
-  if (responsesResult.ok) return responsesResult;
-
   const chatResult = await tryChatCompletionsApi({ baseUrl, apiKey, model, prompt });
   if (chatResult.ok) return chatResult;
+
+  const responsesResult = await tryResponsesApi({ baseUrl, apiKey, model, prompt });
+  if (responsesResult.ok) return responsesResult;
 
   return {
     provider: "local-heuristic",
     usedModel: false,
     raw: null,
-    warning: `Qwen request failed. Responses error: ${responsesResult.error}; Chat error: ${chatResult.error}`
+    warning: `Qwen request failed. Chat error: ${chatResult.error}; Responses error: ${responsesResult.error}`
   };
 }
 
