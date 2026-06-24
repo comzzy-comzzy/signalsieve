@@ -1,6 +1,6 @@
 const DEFAULT_BASE_URL = "https://hackathon.bitgetops.com/v1";
 const DEFAULT_MODEL = "qwen3.6-plus";
-const DEFAULT_TIMEOUT_MS = 12000;
+const DEFAULT_TIMEOUT_MS = 25000;
 
 export async function analyzeWithQwen(input, heuristicResult) {
   const apiKey = process.env.BITGET_QWEN_API_KEY;
@@ -86,7 +86,7 @@ async function tryResponsesApi({ baseUrl, apiKey, model, prompt }) {
       raw: extractResponsesText(text)
     };
   } catch (error) {
-    return { ok: false, error: error.message };
+    return { ok: false, error: normalizeRequestError(error, "responses") };
   } finally {
     clearTimeout(timeout);
   }
@@ -123,7 +123,7 @@ async function tryChatCompletionsApi({ baseUrl, apiKey, model, prompt }) {
       raw: extractChatText(text)
     };
   } catch (error) {
-    return { ok: false, error: error.message };
+    return { ok: false, error: normalizeRequestError(error, "chat") };
   } finally {
     clearTimeout(timeout);
   }
@@ -170,4 +170,11 @@ function extractChatText(text) {
 function getTimeoutMs() {
   const timeout = Number(process.env.QWEN_TIMEOUT_MS || DEFAULT_TIMEOUT_MS);
   return Number.isFinite(timeout) && timeout > 0 ? timeout : DEFAULT_TIMEOUT_MS;
+}
+
+function normalizeRequestError(error, endpointName) {
+  if (error?.name === "AbortError") {
+    return `${endpointName} request timed out after ${getTimeoutMs()}ms`;
+  }
+  return error?.message || "unknown request error";
 }
