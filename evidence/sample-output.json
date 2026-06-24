@@ -1,0 +1,117 @@
+{
+  "generatedAt": "2026-06-21T08:05:10.697Z",
+  "results": [
+    {
+      "sampleId": "fake-bitget-listing",
+      "verdict": "BLOCK",
+      "riskScore": 90,
+      "provider": "local-heuristic",
+      "usedModel": false,
+      "auditId": "c50c7874-7845-44e3-9018-06aba250234d"
+    },
+    {
+      "sampleId": "stale-etf-news",
+      "verdict": "WARN",
+      "riskScore": 36,
+      "provider": "local-heuristic",
+      "usedModel": false,
+      "auditId": "9046f93b-0e16-4122-9e4b-e60017d3669e"
+    },
+    {
+      "sampleId": "metadata-prompt-injection",
+      "verdict": "BLOCK",
+      "riskScore": 80,
+      "provider": "local-heuristic",
+      "usedModel": false,
+      "auditId": "2aa05281-68d8-4e6e-ba01-911c1a59d1a6"
+    }
+  ],
+  "audit": [
+    {
+      "sampleId": "custom-0698703e-096e-4232-9a06-690d57f7ed74",
+      "asset": "BTCUSDT",
+      "sourceType": "social_post",
+      "provider": "local-heuristic",
+      "usedModel": false,
+      "verdict": "BLOCK",
+      "riskScore": 72,
+      "poisoningTypes": [
+        "prompt_injection",
+        "hyperbolic_claim"
+      ],
+      "warning": "BITGET_QWEN_API_KEY is not set; used deterministic local fallback.",
+      "customInput": true,
+      "auditId": "5e811f7e-60b1-46cf-b6d9-a6b7dbafb2c9",
+      "createdAt": "2026-06-20T10:38:51.961Z"
+    },
+    {
+      "sampleId": "custom-c49031f1-f0ed-42c8-8789-b2e660ea70fd",
+      "asset": "BTCUSDT",
+      "sourceType": "social_post",
+      "provider": "local-heuristic",
+      "usedModel": false,
+      "verdict": "BLOCK",
+      "riskScore": 72,
+      "poisoningTypes": [
+        "prompt_injection",
+        "hyperbolic_claim"
+      ],
+      "warning": "BITGET_QWEN_API_KEY is not set; used deterministic local fallback.",
+      "customInput": true,
+      "auditId": "8343a230-48b3-40d3-9707-d931acaa8d19",
+      "createdAt": "2026-06-20T10:38:55.863Z"
+    },
+    {
+      "sampleId": "fake-bitget-listing",
+      "asset": "RIFTUSDT",
+      "sourceType": "social_post",
+      "provider": "local-heuristic",
+      "usedModel": false,
+      "verdict": "BLOCK",
+      "riskScore": 90,
+      "poisoningTypes": [
+        "unverified_listing_claim",
+        "crowded_leverage",
+        "hyperbolic_claim"
+      ],
+      "warning": "BITGET_QWEN_API_KEY is not set; used deterministic local fallback.",
+      "customInput": false,
+      "auditId": "c50c7874-7845-44e3-9018-06aba250234d",
+      "createdAt": "2026-06-21T08:05:10.628Z"
+    },
+    {
+      "sampleId": "stale-etf-news",
+      "asset": "BTCUSDT",
+      "sourceType": "news_headline",
+      "provider": "local-heuristic",
+      "usedModel": false,
+      "verdict": "WARN",
+      "riskScore": 36,
+      "poisoningTypes": [
+        "stale_news_replay",
+        "hyperbolic_claim"
+      ],
+      "warning": "BITGET_QWEN_API_KEY is not set; used deterministic local fallback.",
+      "customInput": false,
+      "auditId": "9046f93b-0e16-4122-9e4b-e60017d3669e",
+      "createdAt": "2026-06-21T08:05:10.645Z"
+    },
+    {
+      "sampleId": "metadata-prompt-injection",
+      "asset": "NOVAUSDT",
+      "sourceType": "token_metadata",
+      "provider": "local-heuristic",
+      "usedModel": false,
+      "verdict": "BLOCK",
+      "riskScore": 80,
+      "poisoningTypes": [
+        "prompt_injection",
+        "thin_liquidity"
+      ],
+      "warning": "BITGET_QWEN_API_KEY is not set; used deterministic local fallback.",
+      "customInput": false,
+      "auditId": "2aa05281-68d8-4e6e-ba01-911c1a59d1a6",
+      "createdAt": "2026-06-21T08:05:10.656Z"
+    }
+  ]
+}

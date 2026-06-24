@@ -1,0 +1,15 @@
+{
+  "name": "signalsieve",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "SignalSieve: an AI data-poisoning firewall for trading agents.",
+  "scripts": {
+    "dev": "node src/server.js",
+    "start": "node src/server.js",
+    "smoke": "node scripts/smoke-test.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

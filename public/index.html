@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="SignalSieve is a Qwen-powered data-poisoning firewall for AI trading agents."
+    >
+    <title>SignalSieve</title>
+    <link rel="icon" href="/logo.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="site-nav">
+      <a class="brand" href="#top" aria-label="SignalSieve home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path class="logo-shell" d="M24 3 43.5 14.2v19.6L24 45 4.5 33.8V14.2L24 3Z"></path>
+            <path class="logo-sieve" d="M16 15h16M13 22h22M16 29h16"></path>
+            <path class="logo-spark" d="M24 10v28M10 24h28"></path>
+          </svg>
+        </span>
+        <span>SignalSieve</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Page sections">
+        <a href="#system">System</a>
+        <a href="#analyzer">Analyzer</a>
+        <a href="#proof">Proof</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero page-section" data-section="top">
+        <div class="hero-copy">
+          <p class="kicker">Trading Infra</p>
+          <h1>
+            Signal firewall for trading agents.
+          </h1>
+          <p class="hero-lede">
+            SignalSieve checks market posts, token metadata, alerts, news, and
+            quote feeds before an AI agent is allowed to trade on them.
+          </p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#analyzer">Analyze signal</a>
+            <a class="button button-ghost" href="#proof">View proof</a>
+          </div>
+        </div>
+
+        <div class="hero-stage" aria-label="SignalSieve product preview">
+          <div class="status-bar">
+            <span>Firewall status</span>
+            <strong id="healthStatus">Checking Qwen...</strong>
+          </div>
+          <div class="hero-console">
+            <div class="console-row">
+              <span>input</span>
+              <strong>market/social/feed</strong>
+            </div>
+            <div class="console-row">
+              <span>scan</span>
+              <strong>Qwen + rules</strong>
+            </div>
+            <div class="console-row is-blue">
+              <span>output</span>
+              <strong>allow / warn / block</strong>
+            </div>
+          </div>
+          <div class="mini-terminal">
+            <span>safeSignal</span>
+            <code>{ "action": "block", "riskScore": 94 }</code>
+          </div>
+        </div>
+      </section>
+
+      <section class="tape" aria-label="Attack classes">
+        <div class="tape-track">
+          <span>fake listing claim</span>
+          <span>prompt injection</span>
+          <span>stale news replay</span>
+          <span>bot sentiment wave</span>
+          <span>feed disagreement</span>
+          <span>thin liquidity trap</span>
+          <span>fake listing claim</span>
+          <span>prompt injection</span>
+          <span>stale news replay</span>
+          <span>bot sentiment wave</span>
+          <span>feed disagreement</span>
+          <span>thin liquidity trap</span>
+        </div>
+      </section>
+
+      <section class="metrics page-section" id="system" data-section="system">
+        <div class="section-heading">
+          <p class="kicker">System</p>
+          <h2>One check before the agent sees the signal.</h2>
+        </div>
+        <div class="metric-grid">
+          <article class="metric">
+            <span class="metric-value" data-count-to="6">0</span>
+            <p>poisoned trading inputs in the local dataset</p>
+          </article>
+          <article class="metric">
+            <span class="metric-value" data-count-to="3">0</span>
+            <p>agent actions: allow, warn, or block</p>
+          </article>
+          <article class="metric">
+            <span class="metric-value" data-count-to="100">0</span>
+            <p>risk-score ceiling before a signal is rejected</p>
+          </article>
+        </div>
+
+        <div class="flow-map">
+          <article class="flow-card">
+            <span>01</span>
+            <h3>Ingest</h3>
+            <p>Market inputs arrive with source type, asset, text, timestamp, and context.</p>
+          </article>
+          <article class="flow-card">
+            <span>02</span>
+            <h3>Sieve</h3>
+            <p>Heuristics and Qwen inspect manipulation patterns and market stress.</p>
+          </article>
+          <article class="flow-card">
+            <span>03</span>
+            <h3>Gate</h3>
+            <p>The downstream agent receives only the safe signal and recommended action.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="network-band">
+        <div class="network-copy">
+          <p class="kicker">Input surface</p>
+          <h2>Trading inputs are attack surfaces.</h2>
+          <p>
+            A trading agent does not only read prices. It reads claims, metadata,
+            scraped copy, social clusters, and third-party APIs. SignalSieve treats
+            every one of those streams as untrusted until it passes the firewall.
+          </p>
+        </div>
+        <div class="network-visual" aria-hidden="true">
+          <div class="mesh-line line-one"></div>
+          <div class="mesh-line line-two"></div>
+          <div class="mesh-line line-three"></div>
+          <span class="mesh-node node-a"></span>
+          <span class="mesh-node node-b"></span>
+          <span class="mesh-node node-c"></span>
+          <span class="mesh-node node-d"></span>
+          <span class="mesh-node node-e"></span>
+          <span class="mesh-node node-f"></span>
+        </div>
+      </section>
+
+      <section class="analyzer page-section" id="analyzer" data-section="analyzer">
+        <div class="section-heading">
+          <p class="kicker">Live analyzer</p>
+          <h2>Paste any trading signal.</h2>
+        </div>
+
+        <div class="analyzer-grid">
+          <section class="sample-console" aria-labelledby="sample-title">
+            <div class="console-topline">
+              <span>input stream</span>
+              <strong id="sourceType">source</strong>
+            </div>
+
+            <div class="mode-tabs" role="group" aria-label="Analyzer input mode">
+              <button class="mode-tab is-active" type="button" data-input-mode="custom">Custom signal</button>
+              <button class="mode-tab" type="button" data-input-mode="sample">Demo samples</button>
+            </div>
+
+            <div id="customPanel" class="input-panel">
+              <div class="field-grid">
+                <label class="field">
+                  <span>Asset pair</span>
+                  <input id="customAsset" autocomplete="off" inputmode="latin" placeholder="BTCUSDT">
+                </label>
+                <label class="field">
+                  <span>Source type</span>
+                  <select id="customSourceType">
+                    <option value="social_post">Social post</option>
+                    <option value="news_headline">News headline</option>
+                    <option value="token_metadata">Token metadata</option>
+                    <option value="social_cluster">Social cluster</option>
+                    <option value="onchain_event">On-chain event</option>
+                    <option value="market_api">Market API</option>
+                    <option value="manual_research">Manual research</option>
+                  </select>
+                </label>
+              </div>
+
+              <label class="field">
+                <span>Source name</span>
+                <input id="customSource" autocomplete="off" placeholder="X post, news feed, token site, API feed">
+              </label>
+
+              <label class="field">
+                <span>Signal text</span>
+                <textarea id="customText" rows="7" placeholder="Paste the trading post, headline, token text, whale alert, or API message you want SignalSieve to check."></textarea>
+              </label>
+
+              <label class="check-field">
+                <input id="useBitgetMarket" type="checkbox" checked>
+                <span>Attach live Bitget spot ticker when the asset pair is available</span>
+              </label>
+            </div>
+
+            <div id="samplePanel" class="input-panel is-hidden">
+              <label class="field">
+                <span>Attack sample</span>
+                <select id="sampleSelect"></select>
+              </label>
+
+              <article class="sample-card">
+                <div class="sample-meta">
+                  <span id="asset">asset</span>
+                  <span id="expectedRisk">expected</span>
+                </div>
+                <h3 id="sample-title"><span id="sampleTitle">Loading...</span></h3>
+                <p id="sampleText"></p>
+              </article>
+            </div>
+
+            <div class="context-grid" id="marketContext"></div>
+          </section>
+
+          <section class="verdict-console" aria-labelledby="verdict-title">
+            <div class="console-topline">
+              <span>firewall output</span>
+              <strong id="providerBadge">No run yet</strong>
+            </div>
+
+            <div class="verdict-orb idle" id="verdictBadge">
+              <span>IDLE</span>
+            </div>
+
+            <div class="score-panel">
+              <div>
+                <span>Risk score</span>
+                <strong id="riskScore">0 / 100</strong>
+              </div>
+              <div class="meter" aria-hidden="true">
+                <div id="riskMeter" class="meter-fill"></div>
+              </div>
+            </div>
+
+            <p id="analysisSummary" class="summary">
+              Paste a signal or choose a sample, then run the firewall. The output is what a trading
+              agent would receive before acting.
+            </p>
+
+            <button id="analyzeButton" class="button button-dark">Analyze signal</button>
+          </section>
+        </div>
+      </section>
+
+      <section class="evidence-band page-section" id="proof" data-section="proof">
+        <div class="evidence-copy">
+          <p class="kicker">Proof of run</p>
+          <h2>Human verdict. Agent payload.</h2>
+          <p>
+            Each analysis writes an audit entry and returns a constrained
+            safeSignal with confidence, poisoning types, and action limits.
+          </p>
+        </div>
+
+        <div class="evidence-grid">
+          <article class="evidence-panel">
+            <div class="panel-title">
+              <span>evidence</span>
+              <strong id="evidenceCount">0 findings</strong>
+            </div>
+            <ul id="evidenceList" class="evidence-list"></ul>
+          </article>
+          <article class="evidence-panel code-panel">
+            <div class="panel-title">
+              <span>safeSignal</span>
+              <strong>JSON</strong>
+            </div>
+            <pre id="safeSignal" class="code-block">{}</pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="audit-section">
+        <div class="section-heading">
+          <p class="kicker">Audit</p>
+          <h2>Recent decisions.</h2>
+        </div>
+        <div class="audit-toolbar">
+          <p>Runtime entries are loaded from <code>logs/audit.ndjson</code>.</p>
+          <button id="refreshAuditButton" class="button button-ghost">Refresh log</button>
+        </div>
+        <div id="auditLog" class="audit-log"></div>
+      </section>
+
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
