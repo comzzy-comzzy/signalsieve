@@ -1,10 +1,10 @@
 # SignalSieve
 
-SignalSieve is a data-poisoning firewall for AI trading agents, built for the Bitget AI Base Camp Hackathon S1 Trading Infra track.
+SignalSieve is a safety layer for AI trading agents, built for the Bitget AI Base Camp Hackathon S1 Trading Infra track.
 
-Trading agents ingest market data, social posts, token metadata, on-chain alerts, news, and previous memory. Any of those inputs can be stale, manipulated, contradictory, or malicious. SignalSieve sits before the trading agent and decides whether an input should be allowed, warned, or blocked.
+The idea came from a simple problem: trading agents can be pushed into bad decisions if the input they read is wrong, manipulated, or written to trick them. A lot of people focus on the strategy or execution side, but the input layer is just as important. If the signal itself is poisoned, the rest of the stack can still fail.
 
-Users can paste their own trading signal into the hosted analyzer, choose the source type, add an asset pair such as `BTCUSDT`, and run a real firewall check. When a Bitget spot pair is available, the analyzer attaches live Bitget ticker context before scoring the input. The repo samples remain available as repeatable judge/demo cases.
+With SignalSieve, you can paste a market post, token text, headline, alert, or API-style message into the analyzer and check whether it looks safe enough to pass to a downstream agent. If a Bitget pair is provided, the app also pulls market context before scoring the input. The sample cases in the repo are there so anyone reviewing it can reproduce the behavior quickly.
 
 ## Hackathon Fit
 
@@ -18,15 +18,15 @@ Users can paste their own trading signal into the hosted analyzer, choose the so
 
 ### 1. Idea
 
-SignalSieve was built around a specific trading-infra problem: autonomous trading agents are only as reliable as the inputs they consume, and those inputs are easy to poison. A trading agent does not just read candles or order books. It also reads social posts, token metadata, whale alerts, scraped headlines, and third-party API payloads. Any of those can contain prompt injection, stale narratives, fake listing claims, contradictory price context, or coordinated manipulation designed to push the downstream agent into a bad trade.
+I built SignalSieve because trading agents are starting to read far more than price charts. They read social posts, token metadata, whale alerts, scraped news, and third-party APIs. That creates a weak point: even if the trading logic is fine, the agent can still make a bad move if the signal it consumes is fake, stale, contradictory, or intentionally malicious.
 
-SignalSieve addresses that problem by acting as a firewall between raw market inputs and the execution layer. A user or upstream system submits a signal, SignalSieve normalizes it, attaches market context when a Bitget pair is available, and then runs a classification pass that decides whether the signal should be `ALLOW`, `WARN`, or `BLOCK`. The output is not just a label. It includes evidence, poisoning type, confidence, and a machine-readable `safeSignal` payload that another trading agent can consume safely. The core logic is simple: unsafe or unverifiable inputs should never reach an execution agent unchanged.
+SignalSieve is meant to sit in front of the trading agent and check those inputs first. The app takes the raw signal, adds market context when a Bitget pair is available, and then decides whether the signal should be allowed through, flagged with a warning, or blocked completely. It also returns the reason for the verdict and a cleaner `safeSignal` object, so the downstream agent does not need to act on the original raw text directly.
 
 ### 2. Progress
 
-The main challenge was turning a broad safety idea into something judges could actually test end to end. The project needed to work both as a live Qwen-backed analyzer and as a reproducible demo with evidence artifacts. That was solved by building the app so it can run with Bitget Qwen for live classification while still supporting an offline fallback mode for deterministic review. Another challenge was making the safety verdict understandable instead of opaque, so the analyzer returns the verdict, detected poisoning pattern, supporting evidence, recommended downstream action, and audit logs rather than a black-box score.
+The hardest part was making the project easy to understand and easy to test. I did not want this to be just an abstract safety idea, so I built it as a working analyzer with demo samples, audit logs, and evidence files that can be reviewed quickly. I also wanted it to work in a live setting with Qwen while still being reviewable when no API key is available, so the app supports both the live model path and an offline fallback.
 
-Completed features include the hosted analyzer UI, custom signal submission, demo poisoned samples, live Bitget market-context checks for supported pairs, Qwen-powered classification, `ALLOW/WARN/BLOCK` verdicts, machine-readable `safeSignal` output, and audit logging with sample evidence files in `evidence/`. The main missing pieces are broader source adapters, deeper historical context across more venues, and a direct integration path into live execution frameworks so the firewall can run automatically in front of deployed agents. Next steps are expanding source coverage, adding more benchmark attack cases, and packaging SignalSieve as a drop-in middleware layer for production trading-agent stacks.
+Right now the core flow is done: the hosted UI works, users can submit custom signals, the sample poisoned cases are included, Bitget market context is used when available, Qwen handles live classification, and the app returns `ALLOW`, `WARN`, or `BLOCK` with evidence and a `safeSignal` payload. Audit logs and sample output files are also included. What is still missing is broader coverage across more data sources and a tighter plug-in path into live execution systems. The next step would be turning this into something that can sit automatically in front of a real trading-agent pipeline instead of only being used as a standalone checker.
 
 Frameworks, models, and APIs used:
 
@@ -42,7 +42,7 @@ Bitget tools used:
 
 ### 3. AI Trading Thoughts
 
-One clear lesson from building SignalSieve is that agentic trading infrastructure needs safety layers as much as it needs better models. The easier it becomes to wire LLMs into trading workflows, the more important it becomes to verify the text, metadata, and external feeds those agents act on. A useful direction for Bitget AI tooling would be tighter first-party support for pre-trade safety checks, benchmark attack datasets, and easier ways to place infrastructure projects like this directly in front of agent execution flows.
+One thing this project made clear to me is that better trading agents alone are not enough. As more people connect LLMs to market workflows, the input quality problem becomes more serious. A useful direction for Bitget AI tooling would be better support for pre-trade safety checks, more public benchmark cases for poisoned signals, and easier ways to place tools like this directly in front of live agent execution.
 
 ## Frontend
 
