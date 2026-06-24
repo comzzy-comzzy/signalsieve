@@ -225,9 +225,7 @@ function renderVerdict(result) {
   const mode = verdict.verdict.toLowerCase();
   const evidence = verdict.evidence ?? [];
 
-  els.providerBadge.textContent = result.provider.usedModel
-    ? `Qwen / ${result.provider.name}`
-    : result.provider.warning || result.provider.name;
+  els.providerBadge.textContent = getProviderLabel(result.provider);
   els.verdictBadge.textContent = verdict.verdict;
   els.verdictBadge.className = `verdict-orb ${mode}`;
   els.riskMeter.style.width = `${verdict.riskScore}%`;
@@ -246,6 +244,16 @@ function renderVerdict(result) {
     safeSignal: verdict.safeSignal,
     auditId: result.audit.auditId
   }, null, 2);
+}
+
+function getProviderLabel(provider) {
+  if (provider?.usedModel) {
+    return `AI analysis / ${provider.name}`;
+  }
+  if (provider?.name === "local-heuristic") {
+    return "Firewall analysis mode";
+  }
+  return "Analysis complete";
 }
 
 function renderEmptyEvidence() {
