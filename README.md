@@ -46,7 +46,7 @@ One clear lesson from building SignalSieve is that agentic trading infrastructur
 
 ## Frontend
 
-The dashboard uses a compact Monad-inspired layout with a white base, Bitget-blue accents, smaller headings, and responsive panels for desktop and phone screens. The analyzer is the first usable product surface: paste a real signal or pick a demo sample, run the firewall, read the verdict, and inspect the safeSignal payload.
+The dashboard uses a compact layout with a white base, Bitget-blue accents, smaller headings, and responsive panels for desktop and phone screens. The analyzer is the first usable product surface: paste a real signal or pick a demo sample, run the firewall, read the verdict, and inspect the safeSignal payload.
 
 ## What It Detects
 
@@ -157,12 +157,3 @@ curl http://127.0.0.1:4180/api/audit
 9. Mention that another trading agent would consume the `safeSignal` object before acting.
 
 Keep the video under three minutes.
-
-## Submission Checklist
-
-- Public GitHub repo with this README
-- Public demo URL or local run instructions
-- Demo video if the hosted demo requires login
-- `evidence/` usage records
-- Clear project thesis: trading agents are attackable through their input streams, so trading infra needs a firewall before execution
-- Community post with `#BitgetHackathon` and `@Bitget_AI` if applying for participation/community awards
