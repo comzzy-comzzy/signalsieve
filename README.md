@@ -14,6 +14,36 @@ Users can paste their own trading signal into the hosted analyzer, choose the so
 - **Verifiable usage record:** `evidence/sample-output.json`, `evidence/sample-audit.ndjson`, and runtime `logs/audit.ndjson`
 - **Demo:** hosted dashboard at `https://signalsieve.vercel.app/`
 
+## Project Description
+
+### 1. Idea
+
+SignalSieve was built around a specific trading-infra problem: autonomous trading agents are only as reliable as the inputs they consume, and those inputs are easy to poison. A trading agent does not just read candles or order books. It also reads social posts, token metadata, whale alerts, scraped headlines, and third-party API payloads. Any of those can contain prompt injection, stale narratives, fake listing claims, contradictory price context, or coordinated manipulation designed to push the downstream agent into a bad trade.
+
+SignalSieve addresses that problem by acting as a firewall between raw market inputs and the execution layer. A user or upstream system submits a signal, SignalSieve normalizes it, attaches market context when a Bitget pair is available, and then runs a classification pass that decides whether the signal should be `ALLOW`, `WARN`, or `BLOCK`. The output is not just a label. It includes evidence, poisoning type, confidence, and a machine-readable `safeSignal` payload that another trading agent can consume safely. The core logic is simple: unsafe or unverifiable inputs should never reach an execution agent unchanged.
+
+### 2. Progress
+
+The main challenge was turning a broad safety idea into something judges could actually test end to end. The project needed to work both as a live Qwen-backed analyzer and as a reproducible demo with evidence artifacts. That was solved by building the app so it can run with Bitget Qwen for live classification while still supporting an offline fallback mode for deterministic review. Another challenge was making the safety verdict understandable instead of opaque, so the analyzer returns the verdict, detected poisoning pattern, supporting evidence, recommended downstream action, and audit logs rather than a black-box score.
+
+Completed features include the hosted analyzer UI, custom signal submission, demo poisoned samples, live Bitget market-context checks for supported pairs, Qwen-powered classification, `ALLOW/WARN/BLOCK` verdicts, machine-readable `safeSignal` output, and audit logging with sample evidence files in `evidence/`. The main missing pieces are broader source adapters, deeper historical context across more venues, and a direct integration path into live execution frameworks so the firewall can run automatically in front of deployed agents. Next steps are expanding source coverage, adding more benchmark attack cases, and packaging SignalSieve as a drop-in middleware layer for production trading-agent stacks.
+
+Frameworks, models, and APIs used:
+
+- Node.js for the app and API server
+- Plain HTML, CSS, and JavaScript for the frontend
+- Bitget Qwen API for live model inference
+- Bitget market data context for asset-pair verification when available
+- Local rules and audit logging for reproducible evidence generation
+
+Bitget tools used:
+
+- Bitget Qwen API
+
+### 3. AI Trading Thoughts
+
+One clear lesson from building SignalSieve is that agentic trading infrastructure needs safety layers as much as it needs better models. The easier it becomes to wire LLMs into trading workflows, the more important it becomes to verify the text, metadata, and external feeds those agents act on. A useful direction for Bitget AI tooling would be tighter first-party support for pre-trade safety checks, benchmark attack datasets, and easier ways to place infrastructure projects like this directly in front of agent execution flows.
+
 ## Frontend
 
 The dashboard uses a compact Monad-inspired layout with a white base, Bitget-blue accents, smaller headings, and responsive panels for desktop and phone screens. The analyzer is the first usable product surface: paste a real signal or pick a demo sample, run the firewall, read the verdict, and inspect the safeSignal payload.
